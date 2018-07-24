@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<ruleset name="DELTA-Custom-Development-PSR2">
+	<description>A custom set of rules based on PSR-2</description>
+
+	<!-- Only scan PHP files. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Check up to 8 files simultanously. -->
+	<arg name="parallel" value="8"/>
+
+	<!-- Load additional standards. -->
+	<config name="installed_paths" value="/misc/temp/phpcs/PHPCompatibility" />
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<!-- Exclude minified Javascript files. -->
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- Include the PSR-2 standard. -->
+	<rule ref="PSR2">
+		<!--
+		We can run `phpcs` with the '-s' flag, which allows us to see the names
+		of the sniffs reporting errors. Once we know the sniff names, we can opt
+		to exclude sniffs which don't suit our project.
+		-->
+
+		<exclude name="Generic.Files.LineLength"/>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+
+		<!-- Add back? Require namespace. -->
+		<exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+		<!-- Add back? One class per file. -->
+		<exclude name="PSR1.Classes.ClassDeclaration.MultipleClasses"/>
+		<!-- Add back? Files should only define or do actions, but not both. -->
+		<exclude name="PSR1.Files.SideEffects"/>
+		<!-- CamelCaps vs snake_case? -->
+		<exclude name="PSR1.Methods.CamelCapsMethodName"/>
+		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+	</rule>
+
+	<!-- Check for PHP cross-version compatibility. -->
+	<config name="testVersion" value="5.6-99.0"/>
+	<rule ref="PHPCompatibility">
+		<!-- Incorrect error. -->
+		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
+
+		<!-- Only applies to PHP 5.6.16 and older. -->
+		<exclude name="PHPCompatibility.PHP.NewConstants.mysqli_client_ssl_dont_verify_server_certFound"/>
+	</rule>
+
+	<!-- Same line class open brace. -->
+	<rule ref="Generic.Classes.OpeningBraceSameLine"/>
+
+	<!-- No space indenting. -->
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+
+	<!-- Space after cast. -->
+	<rule ref="Generic.Formatting.SpaceAfterCast"/>
+
+	<!-- Equals still should have spaces. -->
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="equalsSpacing" value="1" />
+		</properties>
+	</rule>
+
+	<!-- Code quality. -->
+	<rule ref="Generic.CodeAnalysis"/>
+	<rule ref="Generic.Commenting"/>
+	<rule ref="Generic.Metrics"/>
+	<rule ref="Generic.Strings.UnnecessaryStringConcat">
+		<properties>
+			<property name="allowMultiline" value="true" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.PHP.CommentedOutCode"/>
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+	<rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
+	<rule ref="Squiz.PHP.DiscouragedFunctions"/>
+	<rule ref="Squiz.PHP.EmbeddedPhp"/>
+	<rule ref="Squiz.PHP.Eval"/>
+	<rule ref="Squiz.PHP.InnerFunctions"/>
+	<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+	<rule ref="Squiz.PHP.NonExecutableCode"/>
+
+	<!-- Code commenting. -->
+	<rule ref="Squiz.Commenting.ClassComment"/>
+	<rule ref="Squiz.Commenting.FunctionComment">
+		<!-- Comment alignment spacing. -->
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+	</rule>
+	<rule ref="Squiz.Commenting.InlineComment"/>
+	<rule ref="Squiz.Commenting.VariableComment"/>
+
+	<!-- Override statement alignment to have a single space. -->
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<properties>
+			<property name="maxPadding" value="1" />
+		</properties>
+	</rule>
+
+	<!-- Forbidden functions. -->
+	<rule ref="Generic.PHP.ForbiddenFunctions">
+		<properties>
+			<property name="forbiddenFunctions" type="array" value="sizeof=>count,delete=>unset,print=>echo,create_function=>null,array_push=>null,array_key_exists=>isset" />
+		 </properties>
+	</rule>
+</ruleset>

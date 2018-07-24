@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="DELTA-PHPCompatibility">
+	<description>A custom set of rules based on PHPCompatibility</description>
+
+	<!-- Only scan PHP files. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Check up to 8 files simultanously. -->
+	<arg name="parallel" value="8"/>
+
+	<config name="installed_paths" value="/misc/temp/phpcs/PHPCompatibility" />
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<!-- Exclude minified Javascript files. -->
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- Check for PHP cross-version compatibility. -->
+	<config name="testVersion" value="5.6-99.0"/>
+	<rule ref="PHPCompatibility">
+		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/> <!-- Incorrect error -->
+		<exclude name="PHPCompatibility.PHP.NewConstants.mysqli_client_ssl_dont_verify_server_certFound"/> <!-- Only applies to PHP 5.6.16 and older -->
+	</rule>
+</ruleset>
