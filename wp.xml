@@ -28,6 +28,12 @@
 		to exclude sniffs which don't suit our project.
 		-->
 
+		<!-- Allow short echo tags, i.e. <?= ?> -->
+		<exclude name="Generic.PHP.DisallowShortOpenTag"/>
+
+		<!-- Not using PEAR_Class_Names. -->
+		<exclude name="PEAR.NamingConventions.ValidClassName"/>
+
 		<!-- File-level comments are not required. -->
 		<exclude name="Squiz.Commenting.FileComment.Missing"/>
 
@@ -41,12 +47,8 @@
 		<!-- Add back? Hyphenated filenames. -->
 		<exclude name="WordPress.Files.FileName"/>
 
-		<!-- Add back? WordPress snake case. -->
-		<exclude name="WordPress.NamingConventions.ValidFunctionName"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
-
-		<!-- Add back? -->
-		<exclude name="WordPress.XSS.EscapeOutput"/>
+		<!-- Add back? No assignments in while conditions. -->
+		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
 
 		<!-- Yoda is illogical and handled by WordPress.CodeAnalysis.AssignmentInCondition. -->
 		<exclude name="WordPress.PHP.YodaConditions"/>
@@ -56,9 +58,11 @@
 		<exclude name="WordPress.DB.RestrictedFunctions"/>
 
 		<!-- WP Specific: Requires use of WP functions. -->
-		<exclude name="WordPress.CSRF.NonceVerification"/>
+		<exclude name="WordPress.Security.EscapeOutput"/>
+		<exclude name="WordPress.Security.NonceVerification"/>
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
 		<exclude name="WordPress.WP.EnqueuedResources"/>
+		<exclude name="WordPress.WP.TimezoneChange"/>
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->
@@ -75,7 +79,10 @@
 	</rule>
 
 	<!-- Code quality. -->
-	<rule ref="Generic.CodeAnalysis"/>
+	<rule ref="Generic.CodeAnalysis">
+		<!-- Add back? No assignments in while conditions. -->
+		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+	</rule>
 	<rule ref="Generic.Commenting"/>
 	<rule ref="Generic.Metrics"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
@@ -100,7 +107,10 @@
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
 	</rule>
-	<rule ref="Squiz.Commenting.InlineComment"/>
+	<rule ref="Squiz.Commenting.InlineComment">
+		<!-- Add back? Requires either a period, question mark or exclamation point, but that's too restrictive (e.g. URLs). -->
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+	</rule>
 	<rule ref="Squiz.Commenting.VariableComment"/>
 
 	<!-- Override statement alignment to have a single space. -->
@@ -119,6 +129,6 @@
 	<rule ref="Generic.PHP.ForbiddenFunctions">
 		<properties>
 			<property name="forbiddenFunctions" type="array" value="sizeof=>count,delete=>unset,print=>echo,create_function=>null,array_push=>null,array_key_exists=>isset" />
-		 </properties>
+		</properties>
 	</rule>
 </ruleset>
