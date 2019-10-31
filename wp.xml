@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="DELTA-Custom-Development-WP">
+<ruleset name="DELTA-WordPress-Development">
 	<description>A custom set of rules based on WordPress project</description>
 
 	<!-- Only scan PHP files. -->
@@ -9,7 +9,7 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/wpcs,/misc/temp/phpcs/PHPCompatibility" />
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -21,49 +21,7 @@
 	<exclude-pattern>*.min.js</exclude-pattern>
 
 	<!-- Include the WordPress-Extra standard. -->
-	<rule ref="WordPress-Extra">
-		<!--
-		We can run `phpcs` with the '-s' flag, which allows us to see the names
-		of the sniffs reporting errors. Once we know the sniff names, we can opt
-		to exclude sniffs which don't suit our project.
-		-->
-
-		<!-- Allow short echo tags, i.e. <?= ?> -->
-		<exclude name="Generic.PHP.DisallowShortOpenTag"/>
-
-		<!-- Not using PEAR_Class_Names. -->
-		<exclude name="PEAR.NamingConventions.ValidClassName"/>
-
-		<!-- File-level comments are not required. -->
-		<exclude name="Squiz.Commenting.FileComment.Missing"/>
-
-		<!-- Comment alignment spacing. -->
-		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
-		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
-
-		<!-- Add back? Double quotes only when necessary. -->
-		<exclude name="Squiz.Strings.DoubleQuoteUsage"/>
-
-		<!-- Add back? Hyphenated filenames. -->
-		<exclude name="WordPress.Files.FileName"/>
-
-		<!-- Add back? No assignments in while conditions. -->
-		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
-
-		<!-- Yoda is illogical and handled by WordPress.CodeAnalysis.AssignmentInCondition. -->
-		<exclude name="WordPress.PHP.YodaConditions"/>
-
-		<!-- WP Specific: Requires use of $wpdb. -->
-		<exclude name="WordPress.DB.RestrictedClasses"/>
-		<exclude name="WordPress.DB.RestrictedFunctions"/>
-
-		<!-- WP Specific: Requires use of WP functions. -->
-		<exclude name="WordPress.Security.EscapeOutput"/>
-		<exclude name="WordPress.Security.NonceVerification"/>
-		<exclude name="WordPress.WP.AlternativeFunctions"/>
-		<exclude name="WordPress.WP.EnqueuedResources"/>
-		<exclude name="WordPress.WP.TimezoneChange"/>
-	</rule>
+	<rule ref="WordPress-Extra"/>
 
 	<!-- Let's also check that everything is properly documented. -->
 	<rule ref="WordPress-Docs"/>
@@ -79,10 +37,7 @@
 	</rule>
 
 	<!-- Code quality. -->
-	<rule ref="Generic.CodeAnalysis">
-		<!-- Add back? No assignments in while conditions. -->
-		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
-	</rule>
+	<rule ref="Generic.CodeAnalysis"/>
 	<rule ref="Generic.Commenting"/>
 	<rule ref="Generic.Metrics"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">

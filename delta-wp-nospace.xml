@@ -9,7 +9,7 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/wpcs,/misc/temp/phpcs/PHPCompatibility" />
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -53,7 +53,7 @@
 		<!-- No WordPress spaces. -->
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions"/>
-		<exclude name="WordPress.WhiteSpace.ArbitraryParenthesesSpacing"/>
+		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
 		<exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
 
@@ -70,6 +70,7 @@
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
 		<exclude name="WordPress.WP.EnqueuedResources"/>
 		<exclude name="WordPress.WP.TimezoneChange"/>
+		<exclude name="WordPress.WP.GlobalVariablesOverride"/>
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->
