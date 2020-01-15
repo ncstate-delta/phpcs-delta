@@ -147,6 +147,9 @@
 		</properties>
 	</rule>
 
+	<!-- Scope closing brace on own line. -->
+	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace" />
+
 	<!-- Forbidden functions. -->
 	<rule ref="Generic.PHP.ForbiddenFunctions">
 		<properties>
