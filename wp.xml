@@ -80,6 +80,13 @@
 		</properties>
 	</rule>
 
+	<!-- Set is_theme property to allow theme filenames with theme hierarchy exceptions. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="is_theme" value="true"/>
+		</properties>
+	</rule>
+
 	<!-- Forbidden functions. -->
 	<rule ref="Generic.PHP.ForbiddenFunctions">
 		<properties>
