@@ -68,6 +68,7 @@
 		<exclude name="WordPress.Security.EscapeOutput"/>
 		<exclude name="WordPress.Security.NonceVerification"/>
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
+		<exclude name="WordPress.WP.DeprecatedFunctions"/>
 		<exclude name="WordPress.WP.EnqueuedResources"/>
 		<exclude name="WordPress.WP.TimezoneChange"/>
 		<exclude name="WordPress.WP.GlobalVariablesOverride"/>
