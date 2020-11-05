@@ -1,0 +1,9 @@
+[submodule "PHPCompatibility"]
+	path = PHPCompatibility
+	url = https://github.com/PHPCompatibility/PHPCompatibility.git
+[submodule "WordPress-Coding-Standards"]
+	path = WordPress-Coding-Standards
+	url = https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git
+[submodule "PHP_CodeSniffer"]
+	path = PHP_CodeSniffer
+	url = https://github.com/squizlabs/PHP_CodeSniffer.git
