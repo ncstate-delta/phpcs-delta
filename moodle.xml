@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="DELTA-Custom-Development-Moodle">
+	<description>A custom set of rules based on Moodle</description>
+
+	<!-- Only scan PHP files. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Check up to 8 files simultanously. -->
+	<arg name="parallel" value="8"/>
+
+	<!-- Load additional standards. -->
+	<config name="installed_paths" value="/misc/temp/phpcs/moodle-local_codechecker" />
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<!-- Exclude minified Javascript files. -->
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- Include the moodle standard. -->
+	<rule ref="moodle">
+		<!--
+		We can run `phpcs` with the '-s' flag, which allows us to see the names
+		of the sniffs reporting errors. Once we know the sniff names, we can opt
+		to exclude sniffs which don't suit our project.
+		-->
+	</rule>
+
+	<!-- Check for PHP cross-version compatibility. -->
+	<config name="testVersion" value="7.1-99.0"/>
+</ruleset>

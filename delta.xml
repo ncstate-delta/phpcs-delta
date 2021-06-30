@@ -78,13 +78,10 @@
 	<rule ref="WordPress-Docs"/>
 
 	<!-- Check for PHP cross-version compatibility. -->
-	<config name="testVersion" value="5.6-99.0"/>
+	<config name="testVersion" value="7.0-99.0"/>
 	<rule ref="PHPCompatibility">
 		<!-- Incorrect error. -->
 		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
-
-		<!-- Only applies to PHP 5.6.16 and older. -->
-		<exclude name="PHPCompatibility.PHP.NewConstants.mysqli_client_ssl_dont_verify_server_certFound"/>
 	</rule>
 
 	<!-- No spaces around function call signature. No WordPress spaces. -->
