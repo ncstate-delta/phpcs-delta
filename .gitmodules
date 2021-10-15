@@ -10,3 +10,6 @@
 [submodule "moodle-local_codechecker"]
 	path = moodle-local_codechecker
 	url = https://github.com/moodlehq/moodle-local_codechecker.git
+[submodule "PHPCSUtils"]
+	path = PHPCSUtils
+	url = https://github.com/PHPCSStandards/PHPCSUtils.git
