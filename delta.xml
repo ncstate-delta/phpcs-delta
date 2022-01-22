@@ -50,6 +50,9 @@
 		<!-- Add back? No assignments in while conditions. -->
 		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
 
+		<!-- Add back? date() vs gmdate(). -->
+		<exclude name="WordPress.DateTime.RestrictedFunctions"/>
+
 		<!-- No WordPress spaces. -->
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions"/>
