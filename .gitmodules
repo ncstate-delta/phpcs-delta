@@ -7,9 +7,9 @@
 [submodule "PHP_CodeSniffer"]
 	path = PHP_CodeSniffer
 	url = https://github.com/squizlabs/PHP_CodeSniffer.git
-[submodule "moodle-local_codechecker"]
-	path = moodle-local_codechecker
-	url = https://github.com/moodlehq/moodle-local_codechecker.git
 [submodule "PHPCSUtils"]
 	path = PHPCSUtils
 	url = https://github.com/PHPCSStandards/PHPCSUtils.git
+[submodule "moodle-cs"]
+	path = moodle-cs
+	url = https://github.com/moodlehq/moodle-cs.git
