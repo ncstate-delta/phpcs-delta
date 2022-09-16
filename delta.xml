@@ -68,6 +68,7 @@
 		<exclude name="WordPress.DB.RestrictedFunctions"/>
 
 		<!-- WP Specific: Requires use of WP functions. -->
+		<exclude name="WordPress.PHP.IniSet"/>
 		<exclude name="WordPress.Security.EscapeOutput"/>
 		<exclude name="WordPress.Security.NonceVerification"/>
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
