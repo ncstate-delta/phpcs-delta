@@ -13,3 +13,6 @@
 [submodule "moodle-cs"]
 	path = moodle-cs
 	url = https://github.com/moodlehq/moodle-cs.git
+[submodule "PHPCSExtra"]
+	path = PHPCSExtra
+	url = https://github.com/PHPCSStandards/PHPCSExtra.git
