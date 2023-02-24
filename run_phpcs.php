@@ -12,12 +12,8 @@ foreach ($paths as $path => $app) {
 		if (is_readable($path)) {
 			echo $filename . PHP_EOL;
 			passthru("phpcs -p --colors --standard=$phpcs_dir/phpcompatibility.xml --report=json --report-file=$phpcs_dir/output/$filename.json --basepath=$path $path");
-		}
-		else {
+		} else {
 			echo 'ERROR: Folder not readable - ' . $path . PHP_EOL;
 		}
-	}
-	else {
-		//echo 'ERROR: Folder does not exist - ' . $path . PHP_EOL;
 	}
 }

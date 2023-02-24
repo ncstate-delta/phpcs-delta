@@ -9,7 +9,7 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility" />
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -36,6 +36,7 @@
 
 		<!-- File-level comments are not required. -->
 		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
 
 		<!-- Comment alignment spacing. -->
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
@@ -68,6 +69,7 @@
 		<exclude name="WordPress.DB.RestrictedFunctions"/>
 
 		<!-- WP Specific: Requires use of WP functions. -->
+		<exclude name="WordPress.PHP.IniSet"/>
 		<exclude name="WordPress.Security.EscapeOutput"/>
 		<exclude name="WordPress.Security.NonceVerification"/>
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
@@ -81,7 +83,7 @@
 	<rule ref="WordPress-Docs"/>
 
 	<!-- Check for PHP cross-version compatibility. -->
-	<config name="testVersion" value="7.1-99.0"/>
+	<config name="testVersion" value="7.2-99.0"/>
 	<rule ref="PHPCompatibility">
 		<!-- Incorrect error. -->
 		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
