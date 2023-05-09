@@ -20,11 +20,8 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
-	<!-- Include the WordPress-Extra standard. -->
-	<rule ref="WordPress-Extra"/>
-
-	<!-- Let's also check that everything is properly documented. -->
-	<rule ref="WordPress-Docs"/>
+	<!-- Include the WordPress standard. -->
+	<rule ref="WordPress"/>
 
 	<!-- This rule is not part of the standard, but is used by WPCS natively. -->
 	<rule ref="PSR2.Methods.FunctionClosingBrace"/>
@@ -63,10 +60,6 @@
 		<!-- Comment alignment spacing. -->
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
-	</rule>
-	<rule ref="Squiz.Commenting.InlineComment">
-		<!-- Add back? Requires either a period, question mark or exclamation point, but that's too restrictive (e.g. URLs). -->
-		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
 	</rule>
 	<rule ref="Squiz.Commenting.VariableComment"/>
 

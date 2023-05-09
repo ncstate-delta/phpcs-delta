@@ -85,8 +85,11 @@
 	<!-- Check for PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.2-99.0"/>
 	<rule ref="PHPCompatibility">
-		<!-- Incorrect error. -->
+		<!-- PHP 4.3 - Incorrect error. -->
 		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
+
+		<!-- PHP 8.1 - We don't care that the default flags for htmlspecialchars() has changed. Both defaults are acceptable. -->
+		<exclude name="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet"/>
 	</rule>
 
 	<!-- No spaces around function call signature. No WordPress spaces. -->
@@ -107,6 +110,9 @@
 	<rule ref="Generic.CodeAnalysis">
 		<!-- Add back? No assignments in while conditions. -->
 		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+
+		<!-- Handled in a better way by Squiz.Commenting.EmptyCatchComment.Missing -->
+		<exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
 	</rule>
 	<rule ref="Generic.Commenting"/>
 	<rule ref="Generic.Metrics"/>
