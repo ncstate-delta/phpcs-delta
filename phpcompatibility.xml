@@ -22,6 +22,10 @@
 	<!-- Check for PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.1-99.0"/>
 	<rule ref="PHPCompatibility">
-		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/> <!-- Incorrect error -->
+		<!-- PHP 4.3 - Incorrect error. -->
+		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
+
+		<!-- PHP 8.1 - We don't care that the default flags for htmlspecialchars() has changed. Both defaults are acceptable. -->
+		<exclude name="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet"/>
 	</rule>
 </ruleset>
