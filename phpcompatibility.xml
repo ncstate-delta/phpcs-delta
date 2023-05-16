@@ -8,7 +8,7 @@
 	<!-- Check up to 8 files simultanously. -->
 	<arg name="parallel" value="8"/>
 
-	<config name="installed_paths" value="/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils" />
+	<config name="installed_paths" value="/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils,/misc/temp/phpcs/PHPCSExtra" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>

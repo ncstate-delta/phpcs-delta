@@ -9,7 +9,7 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils" />
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils,/misc/temp/phpcs/PHPCSExtra" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -75,7 +75,6 @@
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
 		<exclude name="WordPress.WP.DeprecatedFunctions"/>
 		<exclude name="WordPress.WP.EnqueuedResources"/>
-		<exclude name="WordPress.WP.TimezoneChange"/>
 		<exclude name="WordPress.WP.GlobalVariablesOverride"/>
 	</rule>
 
