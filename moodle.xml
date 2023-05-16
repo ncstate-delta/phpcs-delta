@@ -20,6 +20,29 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
+	<!-- Include the PSR1 standard. -->
+	<rule ref="PSR1">
+		<!-- Moodle has its own rules for these. -->
+		<exclude name="PSR1.Classes.ClassDeclaration"/>
+		<exclude name="PSR1.Methods.CamelCapsMethodName"/>
+
+		<!-- Legacy Moodle code has lots of side effects. -->
+		<exclude name="PSR1.Files.SideEffects"/>
+	</rule>
+
+	<!-- Include the PSR12 standard. -->
+	<rule ref="PSR12">
+		<!-- Moodle has its own rules for these. -->
+		<exclude name="Generic.Files.LineLength"/>
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing"/>
+		<exclude name="PSR12.Files.FileHeader"/>
+		<exclude name="PSR2.Classes.ClassDeclaration"/>
+		<exclude name="PSR2.ControlStructures.ElseIfDeclaration"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature"/>
+		<exclude name="Squiz.Classes.ValidClassName"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+	</rule>
+
 	<!-- Include the moodle standard. -->
 	<rule ref="moodle">
 		<!--
