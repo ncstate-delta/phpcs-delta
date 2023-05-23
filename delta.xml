@@ -20,8 +20,31 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
-	<!-- Include the WordPress-Extra standard. -->
-	<rule ref="WordPress-Extra">
+	<!-- Include the PSR1 standard. -->
+	<rule ref="PSR1">
+		<!-- WordPress has its own rules for these. -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+		<exclude name="PSR1.Classes.ClassDeclaration"/>
+		<exclude name="PSR1.Methods.CamelCapsMethodName"/>
+
+		<!-- Legacy code has lots of side effects. -->
+		<exclude name="PSR1.Files.SideEffects"/>
+	</rule>
+
+	<!-- Include the PSR12 standard. -->
+	<rule ref="PSR12">
+		<!-- WordPress has its own rules for these. -->
+		<exclude name="Generic.Files.LineLength"/>
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing"/>
+		<exclude name="PSR12.Files.FileHeader"/>
+		<exclude name="PSR2.Classes.ClassDeclaration"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature"/>
+		<exclude name="Squiz.Classes.ValidClassName"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+	</rule>
+
+	<!-- Include the WordPress standard. -->
+	<rule ref="WordPress">
 		<!--
 		We can run `phpcs` with the '-s' flag, which allows us to see the names
 		of the sniffs reporting errors. Once we know the sniff names, we can opt
@@ -44,6 +67,9 @@
 
 		<!-- Add back? Double quotes only when necessary. -->
 		<exclude name="Squiz.Strings.DoubleQuoteUsage"/>
+
+		<!-- Allow increment/decrement after variable. -->
+		<exclude name="Universal.Operators.DisallowStandalonePostIncrementDecrement"/>
 
 		<!-- Add back? Hyphenated filenames. -->
 		<exclude name="WordPress.Files.FileName"/>
@@ -72,14 +98,15 @@
 		<exclude name="WordPress.PHP.IniSet"/>
 		<exclude name="WordPress.Security.EscapeOutput"/>
 		<exclude name="WordPress.Security.NonceVerification"/>
+		<exclude name="WordPress.Security.ValidatedSanitizedInput"/>
 		<exclude name="WordPress.WP.AlternativeFunctions"/>
 		<exclude name="WordPress.WP.DeprecatedFunctions"/>
 		<exclude name="WordPress.WP.EnqueuedResources"/>
 		<exclude name="WordPress.WP.GlobalVariablesOverride"/>
-	</rule>
 
-	<!-- Let's also check that everything is properly documented. -->
-	<rule ref="WordPress-Docs"/>
+		<!-- WP Specific: Always capitalizes WordPress, even in code... -->
+		<exclude name="WordPress.WP.CapitalPDangit"/>
+	</rule>
 
 	<!-- Check for PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.2-99.0"/>
@@ -155,8 +182,20 @@
 		</properties>
 	</rule>
 
+	<!-- Switch breaks are followed by newline or the switch end. -->
+	<rule ref="Squiz.ControlStructures.SwitchDeclaration">
+		<exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent" />
+	</rule>
+
 	<!-- Scope closing brace on own line. -->
 	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace" />
+
+	<!-- Enforce arrays with commas and appropriate spaces. -->
+	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing"/>
+	<rule ref="NormalizedArrays.Arrays.CommaAfterLast"/>
+
+	<!-- Disallow PHP's alternative control structure syntax. -->
+	<rule ref="Universal.ControlStructures.DisallowAlternativeSyntax"/>
 
 	<!-- Forbidden functions. -->
 	<rule ref="Generic.PHP.ForbiddenFunctions">

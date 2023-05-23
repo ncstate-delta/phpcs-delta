@@ -19,6 +19,9 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
+	<!-- Check PHP syntax. -->
+	<rule ref="Generic.PHP.Syntax"/>
+
 	<!-- Check for PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.1-99.0"/>
 	<rule ref="PHPCompatibility">
