@@ -142,6 +142,7 @@
 	</rule>
 	<rule ref="Generic.Commenting"/>
 	<rule ref="Generic.Metrics"/>
+	<rule ref="Generic.PHP.Syntax"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
 			<property name="allowMultiline" value="true" />
