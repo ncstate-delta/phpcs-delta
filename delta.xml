@@ -78,35 +78,26 @@
 		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
 
 		<!-- Add back? date() vs gmdate(). -->
-		<exclude name="WordPress.DateTime.RestrictedFunctions"/>
+		<exclude name="WordPress.DateTime"/>
 
 		<!-- No WordPress spaces. -->
+		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions"/>
-		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
-		<exclude name="WordPress.WhiteSpace.CastStructureSpacing"/>
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
-		<exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
+		<exclude name="WordPress.WhiteSpace"/>
 
 		<!-- Yoda is illogical and handled by WordPress.CodeAnalysis.AssignmentInCondition. -->
 		<exclude name="WordPress.PHP.YodaConditions"/>
 
 		<!-- WP Specific: Requires use of $wpdb. -->
-		<exclude name="WordPress.DB.RestrictedClasses"/>
-		<exclude name="WordPress.DB.RestrictedFunctions"/>
+		<exclude name="WordPress.DB"/>
 
 		<!-- WP Specific: Requires use of WP functions. -->
 		<exclude name="WordPress.PHP.IniSet"/>
-		<exclude name="WordPress.Security.EscapeOutput"/>
-		<exclude name="WordPress.Security.NonceVerification"/>
-		<exclude name="WordPress.Security.ValidatedSanitizedInput"/>
-		<exclude name="WordPress.WP.AlternativeFunctions"/>
-		<exclude name="WordPress.WP.DeprecatedFunctions"/>
-		<exclude name="WordPress.WP.EnqueuedResources"/>
-		<exclude name="WordPress.WP.GlobalVariablesOverride"/>
+		<exclude name="WordPress.Security"/>
 
-		<!-- WP Specific: Always capitalizes WordPress, even in code... -->
-		<exclude name="WordPress.WP.CapitalPDangit"/>
+		<!-- WP Specific: General WordPress -->
+		<exclude name="WordPress.WP"/>
 	</rule>
 
 	<!-- Check for PHP cross-version compatibility. -->
