@@ -84,6 +84,7 @@
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions"/>
 		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
+		<exclude name="WordPress.WhiteSpace.CastStructureSpacing"/>
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
 		<exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
 
@@ -192,7 +193,11 @@
 	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace" />
 
 	<!-- Enforce arrays with commas and appropriate spaces. -->
-	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing"/>
+	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing">
+		<properties>
+			<property name="spacesSingleLine" value="0"/>
+		</properties>
+	</rule>
 	<rule ref="NormalizedArrays.Arrays.CommaAfterLast"/>
 
 	<!-- Disallow PHP's alternative control structure syntax. -->
