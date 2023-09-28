@@ -27,9 +27,6 @@
 		of the sniffs reporting errors. Once we know the sniff names, we can opt
 		to exclude sniffs which don't suit our project.
 		-->
-
-		<!-- Moodle requires that specific, global namespace classes exist. -->
-		<exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
 	</rule>
 
 	<!-- Check PHP syntax. -->
