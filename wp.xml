@@ -2,9 +2,6 @@
 <ruleset name="DELTA-WordPress-Development">
 	<description>A custom set of rules based on WordPress project</description>
 
-	<!-- Only scan PHP files. -->
-	<arg name="extensions" value="php"/>
-
 	<!-- Check up to 8 files simultanously. -->
 	<arg name="parallel" value="8"/>
 
