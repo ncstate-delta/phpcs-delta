@@ -9,7 +9,7 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/moodle-local_codechecker" />
+	<config name="installed_paths" value="/misc/temp/phpcs/moodle-cs,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils,/misc/temp/phpcs/PHPCSExtra" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -21,13 +21,19 @@
 	<exclude-pattern>*.min.js</exclude-pattern>
 
 	<!-- Include the moodle standard. -->
-	<rule ref="moodle">
+	<rule ref="moodle-extra">
 		<!--
 		We can run `phpcs` with the '-s' flag, which allows us to see the names
 		of the sniffs reporting errors. Once we know the sniff names, we can opt
 		to exclude sniffs which don't suit our project.
 		-->
 	</rule>
+
+	<!-- Check PHP syntax. -->
+	<rule ref="Generic.PHP.Syntax"/>
+
+	<!-- We require PHP >= 7.1 which allows constant visibility -->
+	<rule ref="PSR12.Properties.ConstantVisibility"/>
 
 	<!-- Check for PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.1-99.0"/>

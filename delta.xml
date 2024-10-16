@@ -9,7 +9,7 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility" />
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils,/misc/temp/phpcs/PHPCSExtra" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -20,8 +20,31 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
-	<!-- Include the WordPress-Extra standard. -->
-	<rule ref="WordPress-Extra">
+	<!-- Include the PSR1 standard. -->
+	<rule ref="PSR1">
+		<!-- WordPress has its own rules for these. -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+		<exclude name="PSR1.Classes.ClassDeclaration"/>
+		<exclude name="PSR1.Methods.CamelCapsMethodName"/>
+
+		<!-- Legacy code has lots of side effects. -->
+		<exclude name="PSR1.Files.SideEffects"/>
+	</rule>
+
+	<!-- Include the PSR12 standard. -->
+	<rule ref="PSR12">
+		<!-- WordPress has its own rules for these. -->
+		<exclude name="Generic.Files.LineLength"/>
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing"/>
+		<exclude name="PSR12.Files.FileHeader"/>
+		<exclude name="PSR2.Classes.ClassDeclaration"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature"/>
+		<exclude name="Squiz.Classes.ValidClassName"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+	</rule>
+
+	<!-- Include the WordPress standard. -->
+	<rule ref="WordPress">
 		<!--
 		We can run `phpcs` with the '-s' flag, which allows us to see the names
 		of the sniffs reporting errors. Once we know the sniff names, we can opt
@@ -36,6 +59,7 @@
 
 		<!-- File-level comments are not required. -->
 		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
 
 		<!-- Comment alignment spacing. -->
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
@@ -44,6 +68,9 @@
 		<!-- Add back? Double quotes only when necessary. -->
 		<exclude name="Squiz.Strings.DoubleQuoteUsage"/>
 
+		<!-- Allow increment/decrement after variable. -->
+		<exclude name="Universal.Operators.DisallowStandalonePostIncrementDecrement"/>
+
 		<!-- Add back? Hyphenated filenames. -->
 		<exclude name="WordPress.Files.FileName"/>
 
@@ -51,40 +78,36 @@
 		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
 
 		<!-- Add back? date() vs gmdate(). -->
-		<exclude name="WordPress.DateTime.RestrictedFunctions"/>
+		<exclude name="WordPress.DateTime"/>
 
 		<!-- No WordPress spaces. -->
+		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing"/>
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions"/>
-		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
-		<exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
+		<exclude name="WordPress.WhiteSpace"/>
 
 		<!-- Yoda is illogical and handled by WordPress.CodeAnalysis.AssignmentInCondition. -->
 		<exclude name="WordPress.PHP.YodaConditions"/>
 
 		<!-- WP Specific: Requires use of $wpdb. -->
-		<exclude name="WordPress.DB.RestrictedClasses"/>
-		<exclude name="WordPress.DB.RestrictedFunctions"/>
+		<exclude name="WordPress.DB"/>
 
 		<!-- WP Specific: Requires use of WP functions. -->
-		<exclude name="WordPress.Security.EscapeOutput"/>
-		<exclude name="WordPress.Security.NonceVerification"/>
-		<exclude name="WordPress.WP.AlternativeFunctions"/>
-		<exclude name="WordPress.WP.DeprecatedFunctions"/>
-		<exclude name="WordPress.WP.EnqueuedResources"/>
-		<exclude name="WordPress.WP.TimezoneChange"/>
-		<exclude name="WordPress.WP.GlobalVariablesOverride"/>
+		<exclude name="WordPress.PHP.IniSet"/>
+		<exclude name="WordPress.Security"/>
+
+		<!-- WP Specific: General WordPress -->
+		<exclude name="WordPress.WP"/>
 	</rule>
 
-	<!-- Let's also check that everything is properly documented. -->
-	<rule ref="WordPress-Docs"/>
-
 	<!-- Check for PHP cross-version compatibility. -->
-	<config name="testVersion" value="7.1-99.0"/>
+	<config name="testVersion" value="7.2-99.0"/>
 	<rule ref="PHPCompatibility">
-		<!-- Incorrect error. -->
+		<!-- PHP 4.3 - Incorrect error. -->
 		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
+
+		<!-- PHP 8.1 - We don't care that the default flags for htmlspecialchars() has changed. Both defaults are acceptable. -->
+		<exclude name="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet"/>
 	</rule>
 
 	<!-- No spaces around function call signature. No WordPress spaces. -->
@@ -105,9 +128,13 @@
 	<rule ref="Generic.CodeAnalysis">
 		<!-- Add back? No assignments in while conditions. -->
 		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+
+		<!-- Handled in a better way by Squiz.Commenting.EmptyCatchComment.Missing -->
+		<exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
 	</rule>
 	<rule ref="Generic.Commenting"/>
 	<rule ref="Generic.Metrics"/>
+	<rule ref="Generic.PHP.Syntax"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
 			<property name="allowMultiline" value="true" />
@@ -148,8 +175,24 @@
 		</properties>
 	</rule>
 
+	<!-- Switch breaks are followed by newline or the switch end. -->
+	<rule ref="Squiz.ControlStructures.SwitchDeclaration">
+		<exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent" />
+	</rule>
+
 	<!-- Scope closing brace on own line. -->
 	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace" />
+
+	<!-- Enforce arrays with commas and appropriate spaces. -->
+	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing">
+		<properties>
+			<property name="spacesSingleLine" value="0"/>
+		</properties>
+	</rule>
+	<rule ref="NormalizedArrays.Arrays.CommaAfterLast"/>
+
+	<!-- Disallow PHP's alternative control structure syntax. -->
+	<rule ref="Universal.ControlStructures.DisallowAlternativeSyntax"/>
 
 	<!-- Forbidden functions. -->
 	<rule ref="Generic.PHP.ForbiddenFunctions">

@@ -6,7 +6,13 @@
 	url = https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git
 [submodule "PHP_CodeSniffer"]
 	path = PHP_CodeSniffer
-	url = https://github.com/squizlabs/PHP_CodeSniffer.git
-[submodule "moodle-local_codechecker"]
-	path = moodle-local_codechecker
-	url = https://github.com/moodlehq/moodle-local_codechecker.git
+	url = https://github.com/PHPCSStandards/PHP_CodeSniffer.git
+[submodule "PHPCSUtils"]
+	path = PHPCSUtils
+	url = https://github.com/PHPCSStandards/PHPCSUtils.git
+[submodule "moodle-cs"]
+	path = moodle-cs
+	url = https://github.com/moodlehq/moodle-cs.git
+[submodule "PHPCSExtra"]
+	path = PHPCSExtra
+	url = https://github.com/PHPCSStandards/PHPCSExtra.git

@@ -2,14 +2,11 @@
 <ruleset name="DELTA-WordPress-Development">
 	<description>A custom set of rules based on WordPress project</description>
 
-	<!-- Only scan PHP files. -->
-	<arg name="extensions" value="php"/>
-
 	<!-- Check up to 8 files simultanously. -->
 	<arg name="parallel" value="8"/>
 
 	<!-- Load additional standards. -->
-	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility" />
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils,/misc/temp/phpcs/PHPCSExtra" />
 
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -20,11 +17,8 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
-	<!-- Include the WordPress-Extra standard. -->
-	<rule ref="WordPress-Extra"/>
-
-	<!-- Let's also check that everything is properly documented. -->
-	<rule ref="WordPress-Docs"/>
+	<!-- Include the WordPress standard. -->
+	<rule ref="WordPress"/>
 
 	<!-- This rule is not part of the standard, but is used by WPCS natively. -->
 	<rule ref="PSR2.Methods.FunctionClosingBrace"/>
@@ -32,17 +26,21 @@
 	<!-- Check for PHP cross-version compatibility. -->
 	<config name="testVersion" value="5.6-99.0"/>
 	<rule ref="PHPCompatibility">
-		<!-- Incorrect error. -->
+		<!-- PHP 4.3 - Incorrect error. -->
 		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
 
 		<!-- Only applies to PHP 5.6.16 and older. -->
 		<exclude name="PHPCompatibility.PHP.NewConstants.mysqli_client_ssl_dont_verify_server_certFound"/>
+
+		<!-- PHP 8.1 - We don't care that the default flags for htmlspecialchars() has changed. Both defaults are acceptable. -->
+		<exclude name="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet"/>
 	</rule>
 
 	<!-- Code quality. -->
 	<rule ref="Generic.CodeAnalysis"/>
 	<rule ref="Generic.Commenting"/>
 	<rule ref="Generic.Metrics"/>
+	<rule ref="Generic.PHP.Syntax"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
 			<property name="allowMultiline" value="true" />
@@ -63,10 +61,6 @@
 		<!-- Comment alignment spacing. -->
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
 		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
-	</rule>
-	<rule ref="Squiz.Commenting.InlineComment">
-		<!-- Add back? Requires either a period, question mark or exclamation point, but that's too restrictive (e.g. URLs). -->
-		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
 	</rule>
 	<rule ref="Squiz.Commenting.VariableComment"/>
 
