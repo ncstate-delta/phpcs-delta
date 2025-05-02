@@ -183,6 +183,32 @@
 	<!-- Scope closing brace on own line. -->
 	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace" />
 
+	<!-- Scope indentation should be exact. -->
+	<rule ref="Generic.Arrays.ArrayIndent">
+		<properties>
+			<property name="indent" value="4"/>
+		</properties>
+	</rule>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="exact" value="true"/>
+			<property name="indent" value="4"/>
+			<property name="tabIndent" value="true"/>
+			<property name="ignoreIndentationTokens" type="array">
+				<element value="T_COMMENT"/>
+				<element value="T_DOC_COMMENT_OPEN_TAG"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- No control structure spaces. -->
+	<rule ref="PSR2.ControlStructures.ControlStructureSpacing">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="0" />
+			<property name="requiredSpacesBeforeClose" value="0" />
+		</properties>
+	</rule>
+
 	<!-- Enforce arrays with commas and appropriate spaces. -->
 	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing">
 		<properties>
