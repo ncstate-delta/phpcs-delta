@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<ruleset name="DELTA-Custom-Development-WP">
+	<description>A custom set of rules based on WordPress project</description>
+
+	<!-- Only scan PHP files. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Check up to 8 files simultanously. -->
+	<arg name="parallel" value="8"/>
+
+	<!-- Load additional standards. -->
+	<config name="installed_paths" value="/misc/temp/phpcs/WordPress-Coding-Standards,/misc/temp/phpcs/PHPCompatibility,/misc/temp/phpcs/PHPCSUtils,/misc/temp/phpcs/PHPCSExtra" />
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<!-- Exclude minified Javascript files. -->
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- Include the PSR1 standard. -->
+	<rule ref="PSR1">
+		<!-- WordPress has its own rules for these. -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+		<exclude name="PSR1.Classes.ClassDeclaration"/>
+		<exclude name="PSR1.Methods.CamelCapsMethodName"/>
+
+		<!-- Legacy code has lots of side effects. -->
+		<exclude name="PSR1.Files.SideEffects"/>
+	</rule>
+
+	<!-- Include the PSR12 standard. -->
+	<rule ref="PSR12">
+		<!-- Proctoring uses long lines sometimes. -->
+		<exclude name="Generic.Files.LineLength.TooLong"/>
+		<!--
+		<exclude name="PSR12.Files.FileHeader"/>
+		<exclude name="PSR2.Classes.ClassDeclaration"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+		-->
+		<!-- Proctoring does not use PascalCase class names. -->
+		<exclude name="Squiz.Classes.ValidClassName"/>
+
+		<!-- Proctoring uses inline control structures sometimes. -->
+		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
+
+		<!-- Proctoring does not use elseif. -->
+		<exclude name="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed" />
+
+		<!-- Proctoring places open braces on new lines. -->
+		<exclude name="Squiz.ControlStructures.ControlSignature" />
+	</rule>
+
+	<rule ref="WordPress.CodeAnalysis.AssignmentInTernaryCondition" />
+	<rule ref="WordPress.CodeAnalysis.EscapedNotTranslated" />
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals" />
+	<rule ref="WordPress.NamingConventions.ValidPostTypeSlug" />
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions" />
+	<rule ref="WordPress.PHP.DontExtract" />
+	<rule ref="WordPress.PHP.NoSilencedErrors" />
+	<rule ref="WordPress.PHP.POSIXFunctions" />
+	<rule ref="WordPress.PHP.PregQuoteDelimiter" />
+	<rule ref="WordPress.PHP.RestrictedPHPFunctions" />
+	<rule ref="WordPress.PHP.StrictInArray" />
+	<rule ref="WordPress.PHP.TypeCasts" />
+	<rule ref="WordPress.Utils.I18nTextDomainFixer" />
+
+	<!-- Check for PHP cross-version compatibility. -->
+	<config name="testVersion" value="8.0-99.0"/>
+	<rule ref="PHPCompatibility">
+		<!-- PHP 4.3 - Incorrect error. -->
+		<exclude name="PHPCompatibility.PHP.NewFunctionParameters.php_uname_modeFound"/>
+
+		<!-- PHP 8.1 - We don't care that the default flags for htmlspecialchars() has changed. Both defaults are acceptable. -->
+		<exclude name="PHPCompatibility.ParameterValues.NewHTMLEntitiesFlagsDefault.NotSet"/>
+	</rule>
+
+	<!-- No spaces around function call signature. No WordPress spaces. -->
+	<rule ref="PEAR.Functions.FunctionCallSignature">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="0"/>
+			<property name="requiredSpacesBeforeClose" value="0"/>
+		</properties>
+	</rule>
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="0"/>
+			<property name="requiredSpacesBeforeClose" value="0"/>
+		</properties>
+	</rule>
+
+	<!-- Code quality. -->
+	<rule ref="Generic.CodeAnalysis">
+		<!-- Add back? No assignments in while conditions. -->
+		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+
+		<!-- Handled in a better way by Squiz.Commenting.EmptyCatchComment.Missing -->
+		<exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+	</rule>
+	<rule ref="Generic.Commenting"/>
+	<rule ref="Generic.PHP.Syntax"/>
+	<rule ref="Generic.Strings.UnnecessaryStringConcat">
+		<properties>
+			<property name="allowMultiline" value="true" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+	<rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
+	<rule ref="Squiz.PHP.DiscouragedFunctions"/>
+	<rule ref="Squiz.PHP.EmbeddedPhp"/>
+	<rule ref="Squiz.PHP.Eval"/>
+	<rule ref="Squiz.PHP.InnerFunctions"/>
+	<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+	<rule ref="Squiz.PHP.NonExecutableCode"/>
+
+	<!-- Code commenting. -->
+	<rule ref="Squiz.Commenting.ClassComment"/>
+	<rule ref="Squiz.Commenting.FunctionComment">
+		<!-- Comment alignment spacing. -->
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+	</rule>
+	<rule ref="Squiz.Commenting.InlineComment">
+		<!-- Add back? Requires either a period, question mark or exclamation point, but that's too restrictive (e.g. URLs). -->
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+
+		<!-- Add back? Requires a space before all inline comments. -->
+		<exclude name="Squiz.Commenting.InlineComment.NoSpaceBefore" />
+
+		<!-- Add back? Requires comments start with a capital letter. -->
+		<exclude name="Squiz.Commenting.InlineComment.NotCapital" />
+	</rule>
+	<rule ref="Squiz.Commenting.VariableComment"/>
+
+	<!-- Override statement alignment to have a single space. -->
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<properties>
+			<property name="maxPadding" value="1" />
+		</properties>
+	</rule>
+
+	<!-- Switch breaks are followed by newline or the switch end. -->
+	<rule ref="Squiz.ControlStructures.SwitchDeclaration">
+		<exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent" />
+	</rule>
+
+	<!-- Scope closing brace on own line. -->
+	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace" />
+
+	<!-- Scope indentation should be exact. -->
+	<rule ref="Generic.Arrays.ArrayIndent">
+		<properties>
+			<property name="indent" value="4"/>
+		</properties>
+	</rule>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="exact" value="false"/>
+			<property name="indent" value="4"/>
+			<property name="tabIndent" value="true"/>
+			<property name="ignoreIndentationTokens" type="array">
+				<element value="T_COMMENT"/>
+				<element value="T_DOC_COMMENT_OPEN_TAG"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- No control structure spaces. -->
+	<rule ref="PSR2.ControlStructures.ControlStructureSpacing">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="0" />
+			<property name="requiredSpacesBeforeClose" value="0" />
+		</properties>
+	</rule>
+
+	<!-- Enforce arrays with commas and appropriate spaces. -->
+	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing">
+		<properties>
+			<property name="spacesSingleLine" value="0"/>
+		</properties>
+	</rule>
+	<rule ref="NormalizedArrays.Arrays.CommaAfterLast"/>
+
+	<!-- Disallow PHP's alternative control structure syntax. -->
+	<rule ref="Universal.ControlStructures.DisallowAlternativeSyntax"/>
+
+	<!-- Forbidden functions. -->
+	<rule ref="Generic.PHP.ForbiddenFunctions">
+		<properties>
+			<property name="forbiddenFunctions" type="array" value="sizeof=>count,delete=>unset,print=>echo,create_function=>null,array_push=>null,array_key_exists=>isset" />
+		</properties>
+	</rule>
+
+	<!--
+Generic.Arrays.ArrayIndent.KeyIncorrect
+Generic.CodeAnalysis.EmptyStatement.DetectedElse
+Generic.CodeAnalysis.EmptyStatement.DetectedIf
+Generic.ControlStructures.InlineControlStructure.NotAllowed
+Generic.Formatting.MultipleStatementAlignment.IncorrectWarning
+Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine
+Generic.PHP.LowerCaseKeyword.Found
+Generic.WhiteSpace.ScopeIndent.IncorrectExact
+NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceBeforeArrayCloserSingleLine
+PEAR.Files.IncludingFile.BracketsNotRequired
+PEAR.Functions.FunctionCallSignature.CloseBracketLine
+PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket
+PEAR.Functions.FunctionCallSignature.Indent
+PSR2.ControlStructures.ControlStructureSpacing.SpaceBeforeCloseBrace
+PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace
+PSR2.ControlStructures.ElseIfDeclaration.NotAllowed
+PSR2.ControlStructures.SwitchDeclaration.WrongOpenercase
+Squiz.Commenting.BlockComment.NoCapital
+Squiz.Commenting.BlockComment.NoEmptyLineBefore
+Squiz.Commenting.InlineComment.NoSpaceBefore
+Squiz.Commenting.InlineComment.SpacingBefore
+Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace
+Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis
+Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword
+Squiz.ControlStructures.SwitchDeclaration.MissingDefault
+Squiz.ControlStructures.SwitchDeclaration.SpaceBeforeColonCase
+Squiz.ControlStructures.SwitchDeclaration.SpacingAfterBreak
+Squiz.PHP.CommentedOutCode.Found
+Squiz.PHP.DisallowMultipleAssignments.Found
+Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose
+Squiz.WhiteSpace.SemicolonSpacing.Incorrect
+Universal.Operators.StrictComparisons.LooseEqual
+Universal.Operators.StrictComparisons.LooseNotEqual
+Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed
+WordPress.Arrays.ArrayIndentation.ItemNotAligned
+WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
+WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
+WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+	-->
+</ruleset>
